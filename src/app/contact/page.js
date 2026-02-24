@@ -30,7 +30,7 @@ const ContactPage = () => {
                     <LuMapPin className="w-6 h-6" />
                   </div>
                   <div className="ml-3 text-base text-gray-600 dark:text-gray-300">
-                    <p>Baikuntha Path, Bharatpur, Chitwan</p>
+                    <p>Bhairahawa,Rupandehi</p>
                   </div>
                 </div>
 
@@ -48,7 +48,7 @@ const ContactPage = () => {
                     <MdOutlineEmail className="h-6 w-6" />
                   </div>
                   <div className="ml-3 text-base text-gray-600 dark:text-gray-300">
-                    <p>bishravshrestha.com.np</p>
+                    <p>amatya56@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -82,7 +82,7 @@ const ContactPage = () => {
               </h2>
               <div className="aspect-w-16 aspect-h-9">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d726.4020397970561!2d84.41641922145618!3d27.68120560590698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2snp!4v1753985368880!5m2!1sen!2snp"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d884.7650975239451!2d83.44630566817669!3d27.498497274506654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39969b17ba315ccb%3A0x38e544a3741d8e1a!2sRaunak!5e0!3m2!1sen!2snp!4v1771520800300!5m2!1sen!2snp"
                   width="100%"
                   height="300"
                   style={{ border: 0 }}

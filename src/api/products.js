@@ -74,6 +74,7 @@ import getFormattedParams from "@/helpers/formatSearchParams";
 
 // ✅ Create a new product
 async function createProduct(data) {
+  console.log(data);
   return await api.post(`/api/products`, data);
 }
 

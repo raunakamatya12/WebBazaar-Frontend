@@ -37,6 +37,7 @@ function ProductForm({ id, product, categories }) {
     }
 
     return formData;
+
   }
 
   async function submitForm(data) {
@@ -45,6 +46,7 @@ function ProductForm({ id, product, categories }) {
     const formData = prepareData(data);
 
     try {
+    
       if (product) {
         await updateProduct(id, formData);
 
@@ -54,6 +56,7 @@ function ProductForm({ id, product, categories }) {
       }
 
       await createProduct(formData);
+      console.log(formData)
 
       reset();
       toast.success("Product added successfully", { autoClose: 750 });

@@ -157,9 +157,9 @@ const Footer = () => {
               <div className="flex items-start">
                 <FiMapPin className="mt-1 mr-3 flex-shrink-0 text-[#016EB7] dark:text-blue-400" />
                 <p className="text-gray-400">
-                  Chitwan
+                  Butwal
                   <br />
-                  Bharatpur
+                 Bhairahawa
                 </p>
               </div>
               <div className="flex items-center">
@@ -207,9 +207,9 @@ const Footer = () => {
 
         {/* Payment Methods */}
         <div className="mt-12 pt-8 border-t border-gray-700">
-          <h4 className="text-lg font-semibold text-white mb-4 text-center">
+          {/* <h4 className="text-lg font-semibold text-white mb-4 text-center">
             We Accept
-          </h4>
+          </h4> */}
           {/* <div className="flex flex-wrap justify-center items-center gap-4">
             <Image
               src="https://khalti.com/static/images/khalti-icon.png"
@@ -224,12 +224,12 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-8 text-center text-gray-400 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Your Store Name. All rights
+            &copy; {new Date().getFullYear()} WebBazaar. All rights
             reserved.
           </p>
-          <p className="mt-2">
+          {/* <p className="mt-2">
             Designed and developed with ❤️ by Team GULUGULU
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>

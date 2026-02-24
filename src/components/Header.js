@@ -34,7 +34,7 @@ function Header() {
         {/* Left: Logo */}
         <Link href="/" className="flex items-center space-x-2">
           {/* <Image src={logo} alt="Logo" width={40} height={40} /> */}
-          <span className="text-2xl font-bold">E-Bazaar</span>
+          <span className="text-2xl font-bold">WebBazaar</span>
         </Link>
 
         {/* Center: Nav Links (hidden on mobile) */}
