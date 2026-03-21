@@ -2,6 +2,7 @@
 
 export async function sendChatMessage(messages, products = []) {
   // hardcoded temporarily to test
+  const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
 
   const systemPrompt =
     products.length > 0
