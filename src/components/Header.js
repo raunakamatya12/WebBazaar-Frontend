@@ -18,7 +18,7 @@ import logo from "@/assets/images/logo.png";
 import navLinks from "@/constants/navLinks.";
 import { LIGHT_THEME, DARK_THEME } from "@/constants/theme";
 import { CART_ROUTE, LOGIN_ROUTE } from "@/constants/routes";
-import { toggleTheme, setLightTheme, setDarkTheme } from "@/redux/userPreference/userPreferenceSlice";
+import { toggleTheme } from "@/redux/userPreference/userPreferenceSlice";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
@@ -50,20 +50,12 @@ function Header() {
         {/* Right: Actions */}
         <div className="flex items-center gap-3">
           {/* Theme Toggle */}
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => dispatch(setLightTheme())}
-              className={`p-2 text-xl rounded ${theme === LIGHT_THEME ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
-              title="Light theme">
-              <MdOutlineLightMode />
-            </button>
-            <button
-              onClick={() => dispatch(setDarkTheme())}
-              className={`p-2 text-xl rounded ${theme === DARK_THEME ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
-              title="Dark theme">
-              <MdOutlineDarkMode />
-            </button>
-          </div>
+          <button
+            onClick={() => dispatch(toggleTheme())}
+            className="p-2 text-xl rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+            title={theme === LIGHT_THEME ? "Switch to dark theme" : "Switch to light theme"}>
+            {theme === LIGHT_THEME ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
+          </button>
 
           {/* Cart */}
           <Link href={CART_ROUTE} className="relative p-2 text-xl">

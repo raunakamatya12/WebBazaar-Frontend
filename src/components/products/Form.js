@@ -25,6 +25,7 @@ function ProductForm({ id, product, categories }) {
     formData.append("brand", data.brand);
     formData.append("category", data.category);
     formData.append("price", data.price);
+    formData.append("stock", data.stock);
 
     if (data.description) {
       formData.append("description", data.description);
@@ -144,6 +145,22 @@ function ProductForm({ id, product, categories }) {
             placeholder="Rs. 2999"
             required
             {...register("price")}
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label
+            htmlFor="stock"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Stock
+          </label>
+          <input
+            type="number"
+            id="stock"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="10"
+            required
+            min="0"
+            {...register("stock")}
           />
         </div>
         <div className="sm:col-span-2">

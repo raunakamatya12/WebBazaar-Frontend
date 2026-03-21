@@ -34,8 +34,12 @@ export default function ProductDetails({ product }) {
       <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
         <ImagePreview imageUrls={product.imageUrls} />
         <div className="mt-6 sm:mt-8 lg:mt-0">
-          <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
-            In Stock
+          <span className={`text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ${
+            product.stock > 0 
+              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" 
+              : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+          }`}>
+            {product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}
           </span>
           <h1 className="text-xl mt-2 font-semibold text-gray-900 sm:text-2xl dark:text-white">
             {product.name}
