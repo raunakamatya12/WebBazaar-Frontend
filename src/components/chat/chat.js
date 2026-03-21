@@ -1,6 +1,7 @@
 // src/api/chat.js
 
 export async function sendChatMessage(messages, products = []) {
+  // hardcoded temporarily to test
 
   const systemPrompt =
     products.length > 0
