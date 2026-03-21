@@ -5,7 +5,7 @@ import {
   FiInstagram,
   FiLinkedin,
   FiYoutube,
-  FiMail,
+  FiGithub,
   FiPhone,
   FiMapPin,
 } from "react-icons/fi";
@@ -171,11 +171,11 @@ const Footer = () => {
                 </a>
               </div>
               <div className="flex items-center">
-                <FiMail className="mr-3 flex-shrink-0 text-[#016EB7] dark:text-blue-400" />
+                <FiGithub className="mr-3 flex-shrink-0 text-[#016EB7] dark:text-blue-400" />
                 <a
-                  href="mailto:info@yourstore.com"
+                  href="https://github.com/raunakamatya12"
                   className="text-gray-400 hover:text-[#016EB7] dark:hover:text-blue-400 transition-colors duration-300">
-                  https://aayush-aadhikari.com.np/
+                  Visit My Github
                 </a>
               </div>
             </div>

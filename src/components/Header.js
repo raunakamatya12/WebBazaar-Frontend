@@ -16,9 +16,9 @@ import AuthUser from "./AuthUser";
 import Navlink from "./Navlink";
 import logo from "@/assets/images/logo.png";
 import navLinks from "@/constants/navLinks.";
-import { LIGHT_THEME } from "@/constants/theme";
+import { LIGHT_THEME, DARK_THEME } from "@/constants/theme";
 import { CART_ROUTE, LOGIN_ROUTE } from "@/constants/routes";
-import { toggleTheme } from "@/redux/userPreference/userPreferenceSlice";
+import { toggleTheme, setLightTheme, setDarkTheme } from "@/redux/userPreference/userPreferenceSlice";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
@@ -33,7 +33,7 @@ function Header() {
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Left: Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          {/* <Image src={logo} alt="Logo" width={40} height={40} /> */}
+          <Image src={logo} alt="Logo" width={40} height={40} />
           <span className="text-2xl font-bold">WebBazaar</span>
         </Link>
 
@@ -50,18 +50,20 @@ function Header() {
         {/* Right: Actions */}
         <div className="flex items-center gap-3">
           {/* Theme Toggle */}
-          <button
-            onClick={() => dispatch(toggleTheme())}
-            className="p-2 text-xl"
-            title={
-              theme === LIGHT_THEME ? "Switch to dark" : "Switch to light"
-            }>
-            {theme === LIGHT_THEME ? (
-              <MdOutlineDarkMode />
-            ) : (
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => dispatch(setLightTheme())}
+              className={`p-2 text-xl rounded ${theme === LIGHT_THEME ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+              title="Light theme">
               <MdOutlineLightMode />
-            )}
-          </button>
+            </button>
+            <button
+              onClick={() => dispatch(setDarkTheme())}
+              className={`p-2 text-xl rounded ${theme === DARK_THEME ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+              title="Dark theme">
+              <MdOutlineDarkMode />
+            </button>
+          </div>
 
           {/* Cart */}
           <Link href={CART_ROUTE} className="relative p-2 text-xl">

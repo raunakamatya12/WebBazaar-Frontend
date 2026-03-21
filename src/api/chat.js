@@ -1,18 +1,24 @@
 import config from "../config";
 
-const API_BASE = config.apiUrl || "http://localhost:5000";
+export async function sendChatMessage(messages, products = []) {
+  // Extract the last user message
+  const lastUserMessage = messages.filter(m => m.role === 'user').pop();
+  if (!lastUserMessage) throw new Error("No user message found");
 
-export async function sendChatMessage(message) {
-  const res = await fetch(`${API_BASE}/api/chat`, {
+  const res = await fetch(`${config.apiUrl}/api/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({
+      message: lastUserMessage.content,
+      products: products // Send products if available
+    }),
   });
+
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || "Failed to send message");
+    const errorData = await res.json().catch(() => ({}));
+    // Pass through the backend error message
+    throw new Error(errorData.error || "AI request failed");
   }
+
   return res.json();
 }
-
-export default { sendChatMessage };

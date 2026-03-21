@@ -6,6 +6,7 @@ import Link from "next/link";
 import PopularProducts from "@/components/home/PopularProducts";
 import { CONTACT_ROUTE, PRODUCTS_ROUTE } from "@/constants/routes";
 import config from "@/config";
+import ChatBox from "@/components/chat/ChatBox";
 
 const HomePage = () => {
   console.log(config.apiUrl);
@@ -41,7 +42,7 @@ const HomePage = () => {
       </section>
 
       <BestProduct />
-
+      <ChatBox className='relative bottom-6 right-6 w-[360px] max-h-[80vh] bg-white rounded-xl shadow-xl border flex flex-col z-50'/>
       <Footer />
     </div>
   );

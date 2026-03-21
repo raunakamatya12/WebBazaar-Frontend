@@ -1,22 +1,24 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Root custom colors */
 :root {
   --primary: #016EB7;
   --secondary: #303B45;
 }
 
-@theme inline {
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-}
-
+/* Custom dark variant (Tailwind JIT-compatible) */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Card component */
 .card {
   @apply h-52 w-full text-white bg-black rounded-xl flex items-center justify-center;
 }
 
 /**
+ * Tailwind CSS cheat sheet:
+ *
  * Margin: m
  * Padding: p
  *
@@ -28,24 +30,24 @@
  * Horizontal: x
  * Vertical: y
  *
- * text: text-<color>-<intensity>, text-<size>
+ * Text color & size: text-<color>-<intensity>, text-<size>
  *
  * Sizes: xs, sm, md, lg, xl, 2xl, 3xl, 4xl
  *
- * font: font-<value>
+ * Font: font-<value>
  *
- * display: flex, hidden, grid, block, inline-block
- * align-items: items-center,  items-left, items-right
- * justify-content: justify-center, justify-between, justify-evenly
- * flex-direction: flex-col, flex-row
+ * Display: flex, hidden, grid, block, inline-block
+ * Align items: items-center, items-start, items-end
+ * Justify content: justify-center, justify-between, justify-evenly
+ * Flex direction: flex-col, flex-row
  *
- * box-shadow: shadow
+ * Box shadow: shadow
  *
- * position: absolute, relative, fixed, sticky
+ * Position: absolute, relative, fixed, sticky
  *
- * border: border-<value>
+ * Border: border-<value>
  *
- * background: bg
+ * Background: bg-<value>
  *
- * dark
+ * Dark mode: dark:
  */

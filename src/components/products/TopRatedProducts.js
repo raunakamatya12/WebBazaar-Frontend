@@ -12,7 +12,12 @@ export default function TopRatedProducts() {
     async function fetchTop() {
       try {
         const res = await getPopularProducts();
-        setProducts(res.data.slice(0, 4));
+        if (res.data && Array.isArray(res.data)) {
+          const validProducts = res.data.filter(product =>
+            product.name && product.price && product.category
+          );
+          setProducts(validProducts.slice(0, 4));
+        }
       } catch (error) {
         console.error("❌ Failed to load top-rated products:", error.message);
       }
@@ -36,11 +41,14 @@ export default function TopRatedProducts() {
             {/* Zoom effect container */}
             <div className="overflow-hidden group">
               <Image
-                src={product.imageUrls[0]}
+                src={product.imageUrls?.[0] || "/assets/images/product-placeholder.jpeg"}
                 alt={product.name}
                 width={300}
                 height={220}
                 className="w-full h-52 object-cover transition-transform duration-300 transform group-hover:scale-105"
+                onError={(e) => {
+                  e.target.src = "/assets/images/product-placeholder.jpeg";
+                }}
               />
             </div>
 
