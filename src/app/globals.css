@@ -8,9 +8,6 @@
   --secondary: #303B45;
 }
 
-/* Custom dark variant (Tailwind JIT-compatible) */
-@custom-variant dark (&:where(.dark, .dark *));
-
 /* Card component */
 .card {
   @apply h-52 w-full text-white bg-black rounded-xl flex items-center justify-center;
@@ -48,6 +45,4 @@
  * Border: border-<value>
  *
  * Background: bg-<value>
- *
- * Dark mode: dark:
  */

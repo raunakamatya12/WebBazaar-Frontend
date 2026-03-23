@@ -15,8 +15,8 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   return (
-    <html lang="en" >
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-white text-black dark:bg-black dark:text-white">
         <AppProvider>
           <MainLayout>
             <Header />

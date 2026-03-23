@@ -71,7 +71,6 @@ export default function TopRatedSlider() {
                     alt={product.name}
                     width={1000}
                     height={1000}
-                    img
                     className="w-full h-full object-cover p-6 transform hover:scale-105 transition duration-500"
                   />
                 </div>
