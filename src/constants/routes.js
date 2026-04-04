@@ -7,5 +7,6 @@ export const ORDERS_ROUTE = "/orders";
 export const ORDER_MANAGEMENT_ROUTE = "/order-management";
 export const PRODUCTS_ROUTE = "/products";
 export const PRODUCT_MANAGEMENT_ROUTE = "/product-management";
+export const PROFILE_ROUTE = "/profile";
 export const REGISTER_ROUTE = "/register";
 export const USER_MANAGEMENT_ROUTE = "/user-management";

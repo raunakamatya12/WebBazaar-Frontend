@@ -14,8 +14,15 @@ function ProductForm({ id, product, categories }) {
   const [localImageUrls, setLocalImageUrls] = useState([]);
   const [productImages, setProductImages] = useState([]);
 
-  const { register, handleSubmit, reset } = useForm({
-    values: product,
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    values: product || {
+      name: "",
+      brand: "",
+      category: "",
+      price: "",
+      stock: 10,
+      description: "",
+    },
   });
 
   function prepareData(data) {
@@ -25,12 +32,13 @@ function ProductForm({ id, product, categories }) {
     formData.append("brand", data.brand);
     formData.append("category", data.category);
     formData.append("price", data.price);
-    formData.append("stock", data.stock);
+    formData.append("stock", data.stock || 10); // Default to 10 if not provided
 
     if (data.description) {
       formData.append("description", data.description);
     }
 
+    // Images are optional
     if (productImages.length > 0) {
       productImages.map((image) => {
         formData.append("images", image);
@@ -38,7 +46,6 @@ function ProductForm({ id, product, categories }) {
     }
 
     return formData;
-
   }
 
   async function submitForm(data) {
@@ -47,22 +54,29 @@ function ProductForm({ id, product, categories }) {
     const formData = prepareData(data);
 
     try {
-    
       if (product) {
         await updateProduct(id, formData);
-
         toast.success("Product updated successfully", { autoClose: 750 });
-
         return;
       }
 
       await createProduct(formData);
-      console.log(formData)
-
-      reset();
+      reset({
+        name: "",
+        brand: "",
+        category: "",
+        price: "",
+        stock: 10,
+        description: "",
+      });
       toast.success("Product added successfully", { autoClose: 750 });
     } catch (error) {
-      toast.error(error.response.data, { autoClose: 750 });
+      const errorMessage = error?.response?.data?.message || 
+                          error?.response?.data || 
+                          error?.message || 
+                          "Failed to add product";
+      toast.error(errorMessage, { autoClose: 750 });
+      console.error("Product submission error:", error);
     } finally {
       setLoading(false);
       setLocalImageUrls([]);
@@ -82,7 +96,7 @@ function ProductForm({ id, product, categories }) {
           <input
             type="text"
             id="name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            className={`bg-gray-50 border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
             placeholder="Type product name"
             required
             {...register("name", {
@@ -93,6 +107,7 @@ function ProductForm({ id, product, categories }) {
               },
             })}
           />
+          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
         </div>
         <div className="w-full">
           <label
@@ -103,11 +118,12 @@ function ProductForm({ id, product, categories }) {
           <input
             type="text"
             id="brand"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            className={`bg-gray-50 border ${errors.brand ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
             placeholder="Product brand"
             required
-            {...register("brand")}
+            {...register("brand", { required: "Brand is required" })}
           />
+          {errors.brand && <p className="text-red-500 text-xs mt-1">{errors.brand.message}</p>}
         </div>
         <div>
           <label
@@ -119,11 +135,12 @@ function ProductForm({ id, product, categories }) {
             type="text"
             id="category"
             list="categories"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            className={`bg-gray-50 border ${errors.category ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
             placeholder="Product category"
             required
-            {...register("category")}
+            {...register("category", { required: "Category is required" })}
           />
+          {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category.message}</p>}
           <datalist id="categories">
             {categories?.map((category, index) => (
               <option key={index} value={category}>
@@ -141,11 +158,15 @@ function ProductForm({ id, product, categories }) {
           <input
             type="number"
             id="price"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            className={`bg-gray-50 border ${errors.price ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
             placeholder="Rs. 2999"
             required
-            {...register("price")}
+            {...register("price", { 
+              required: "Price is required",
+              min: { value: 1, message: "Price must be greater than 0" }
+            })}
           />
+          {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price.message}</p>}
         </div>
         <div className="sm:col-span-2">
           <label
@@ -158,6 +179,7 @@ function ProductForm({ id, product, categories }) {
             id="stock"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
             placeholder="10"
+            defaultValue="10"
             required
             min="0"
             {...register("stock")}
@@ -189,7 +211,7 @@ function ProductForm({ id, product, categories }) {
                 and drop
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                SVG, PNG, JPG
+                SVG, PNG, JPG (Optional)
               </p>
             </div>
             <input

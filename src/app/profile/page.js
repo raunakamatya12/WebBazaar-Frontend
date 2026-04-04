@@ -29,6 +29,7 @@ function ProfilePage() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     values: user
       ? {
@@ -41,6 +42,20 @@ function ProfilePage() {
         }
       : null,
   });
+
+  // Update form values when user data changes
+  useEffect(() => {
+    if (user) {
+      reset({
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        city: user.address.city,
+        province: user.address.province,
+        street: user.address.street,
+      });
+    }
+  }, [user, reset]);
 
   function submitForm(data) {
     setLoading(true);
@@ -217,7 +232,7 @@ function ProfilePage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full text-white bg-primary hover:opacity-90 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:opacity-80"
+          className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:opacity-80 dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           <span>Update profile</span>
           {loading && <Spinner className="h-5 w-5 ml-2" />}

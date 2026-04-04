@@ -4,6 +4,7 @@ import Footer from "@/components/home/Footer";
 import HomePageSLider from "@/components/home/Slider";
 import Link from "next/link";
 import PopularProducts from "@/components/home/PopularProducts";
+import PersonalizedRecommendations from "@/components/products/PersonalizedRecommendations";
 import { CONTACT_ROUTE, PRODUCTS_ROUTE } from "@/constants/routes";
 import config from "@/config";
 import ChatBox from "@/components/chat/ChatBox";
@@ -15,6 +16,9 @@ const HomePage = () => {
       <HomePageSLider />
       <FeaturesSection />
       <PopularProducts />
+      <div className="container mx-auto px-6">
+        <PersonalizedRecommendations />
+      </div>
 
       {/* CTA Section */}
       <section className="py-16 bg-[#016EB7] dark:bg-blue-900 transition-colors duration-300">

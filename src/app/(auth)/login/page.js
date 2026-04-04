@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Spinner from "@/components/Spinner";
 import { EMAIL_REGEX } from "@/constants/regex";
-import { HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
+import { HOME_ROUTE, REGISTER_ROUTE, DASHBOARD_ROUTE } from "@/constants/routes";
 import { loginUser } from "@/redux/auth/authActions";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import PasswordField from "@/components/auth/PasswordField";
+import { allowedAdminRoles } from "@/helpers/auth";
 
 function LoginPage() {
   const {
@@ -30,7 +31,14 @@ function LoginPage() {
   }
 
   useEffect(() => {
-    if (user) return router.push(HOME_ROUTE);
+    if (user) {
+      // Redirect based on user role
+      if (allowedAdminRoles(user?.roles)) {
+        router.push(DASHBOARD_ROUTE);
+      } else {
+        router.push(HOME_ROUTE);
+      }
+    }
 
     if (error)
       toast.error(error, {
@@ -43,6 +51,9 @@ function LoginPage() {
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-5">
         Sign in to your account
       </h1>
+      
+      {/* Simplified: removed extra role description text for cleaner login UI */}
+
       <form
         className="space-y-4 md:space-y-6"
         onSubmit={handleSubmit(submitForm)}

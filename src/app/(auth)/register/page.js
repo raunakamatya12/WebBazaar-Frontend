@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { logoutUser } from "@/redux/auth/authSlice";
+import { ROLE_USER } from "@/constants/roles";
 
 function RegisterPage() {
   const {
@@ -41,6 +42,7 @@ function RegisterPage() {
         email: data.email,
         password: data.password,
         confirmPassword: data.confirmPassword,
+        roles: [ROLE_USER],
       })
     );
   }
@@ -112,7 +114,7 @@ function RegisterPage() {
             Phone number
           </label>
           <input
-            type="tel"
+            type="number"
             id="phone"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="9876543210"

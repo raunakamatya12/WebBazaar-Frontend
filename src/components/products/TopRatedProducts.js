@@ -4,6 +4,7 @@ import { getPopularProducts } from "@/api/products";
 import Image from "next/image";
 import Link from "next/link";
 import AddToCart from "./AddToCart";
+import BuyNow from "./BuyNow";
 
 export default function TopRatedProducts() {
   const [products, setProducts] = useState([]);
@@ -64,8 +65,9 @@ export default function TopRatedProducts() {
                 <span>{product.ratingsCount ?? 0} reviews</span>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-5 flex gap-2 flex-col">
                 <AddToCart product={product} />
+                <BuyNow product={product} />
               </div>
             </div>
           </div>

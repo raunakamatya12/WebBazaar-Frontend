@@ -2,18 +2,25 @@
 
 import { addToCart } from "@/redux/cart/cartSlice";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { LOGIN_ROUTE } from "@/constants/routes";
 
 function AddToCart({ product, className }) {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { user } = useSelector((state) => state.auth);
 
   function addProductToCart() {
-    if (product.stock <= 0) {
-      toast.error("Product is out of stock.", { autoClose: 750 });
+    // Check if user is logged in
+    if (!user) {
+      toast.error("Please login to add items to cart", { autoClose: 750 });
+      router.push(LOGIN_ROUTE);
       return;
     }
 
+    // Allow adding to cart even if out of stock
     delete product.description;
 
     dispatch(addToCart(product));
@@ -24,11 +31,11 @@ function AddToCart({ product, className }) {
   return (
     <button
       onClick={addProductToCart}
-      disabled={product.stock <= 0}
-      className={`rounded px-4 py-2 flex items-center justify-center bg-primary hover:opacity-90 text-white disabled:bg-gray-400 disabled:cursor-not-allowed ${className}`}
+      disabled={false}
+      className={`rounded px-4 py-2 flex items-center justify-center bg-primary hover:opacity-90 text-white transition duration-300 ${className}`}
     >
       <MdOutlineAddShoppingCart className="w-4 h-4 me-2" />
-      <span> {product.stock <= 0 ? "Out of Stock" : "Add to cart"}</span>
+      <span>Add to cart</span>
     </button>
   );
 }

@@ -30,20 +30,20 @@ function AuthUserPopup({ user, setShowPopup }) {
       {isAllowed && (
         <Link
           href={DASHBOARD_ROUTE}
-          className="bg-gray-200 block text-black my-2 py-1 px-4 rounded-md w-full hover:bg-gray-300"
+          className="bg-gray-200 dark:bg-slate-600 block text-black dark:text-white my-2 py-1 px-4 rounded-md w-full hover:bg-gray-300 dark:hover:bg-slate-500"
         >
           Dashboard
         </Link>
       )}
       <Link
         href="/profile"
-        className="bg-gray-200 block text-black my-2 py-1 px-4 rounded-md w-full hover:bg-gray-300"
+        className="bg-gray-200 dark:bg-slate-600 block text-black dark:text-white my-2 py-1 px-4 rounded-md w-full hover:bg-gray-300 dark:hover:bg-slate-500"
       >
         Profile
       </Link>
       <button
         onClick={logout}
-        className="bg-primary text-white py-1 px-4 rounded-md w-full flex items-center justify-between hover:opacity-90"
+        className="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded-md w-full flex items-center justify-between dark:bg-blue-600 dark:hover:bg-blue-700"
       >
         <span>Logout</span>
         <IoLogOutOutline />

@@ -9,6 +9,13 @@ import {
   FiPhone,
   FiMapPin,
 } from "react-icons/fi";
+import Link from "next/link";
+import {
+  HOME_ROUTE,
+  PRODUCTS_ROUTE,
+  CONTACT_ROUTE,
+  PROFILE_ROUTE,
+} from "@/constants/routes";
 
 const Footer = () => {
   return (
@@ -57,32 +64,32 @@ const Footer = () => {
             <h3 className="text-xl font-bold text-white">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={HOME_ROUTE}
                   className="text-gray-400 hover:text-[#016EB7] dark:hover:text-blue-400 transition-colors duration-300">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={PRODUCTS_ROUTE}
                   className="text-gray-400 hover:text-[#016EB7] dark:hover:text-blue-400 transition-colors duration-300">
                   Shop
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={`${PRODUCTS_ROUTE}?sort=newest`}
                   className="text-gray-400 hover:text-[#016EB7] dark:hover:text-blue-400 transition-colors duration-300">
                   New Arrivals
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={`${PRODUCTS_ROUTE}?sort=rating`}
                   className="text-gray-400 hover:text-[#016EB7] dark:hover:text-blue-400 transition-colors duration-300">
                   Best Sellers
-                </a>
+                </Link>
               </li>
               <li>
                 <a
@@ -92,11 +99,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={PROFILE_ROUTE}
                   className="text-gray-400 hover:text-[#016EB7] dark:hover:text-blue-400 transition-colors duration-300">
                   My Account
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -106,11 +113,11 @@ const Footer = () => {
             <h3 className="text-xl font-bold text-white">Customer Service</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={CONTACT_ROUTE}
                   className="text-gray-400 hover:text-[#016EB7] dark:hover:text-blue-400 transition-colors duration-300">
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li>
                 <a

@@ -5,15 +5,49 @@ import { useSelector } from "react-redux";
 import { addComment, getCommentsByProduct, deleteComment } from "@/api/comment";
 import { toast } from "react-toastify";
 import { FaTrashAlt } from "react-icons/fa";
+import axios from "axios";
+import config from "@/config";
 
 export default function CommentSectionClient({ productId }) {
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [canComment, setCanComment] = useState(false);
+  const [checkingPermission, setCheckingPermission] = useState(true);
 
   const user = useSelector((state) => state.auth.user);
   const userId = user?._id || user?.id;
+
+  // Check if user can comment (has purchased this product)
+  useEffect(() => {
+    if (!userId) {
+      setCheckingPermission(false);
+      return;
+    }
+
+    const checkCanComment = async () => {
+      try {
+        setCheckingPermission(true);
+        const res = await axios.get(
+          `${config.apiUrl}/api/comments/${productId}/can-comment`,
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
+        );
+        setCanComment(res.data.canComment);
+      } catch (err) {
+        console.error("Can comment check error:", err);
+        setCanComment(false);
+      } finally {
+        setCheckingPermission(false);
+      }
+    };
+
+    checkCanComment();
+  }, [userId, productId, user?.token]);
 
   const fetchComments = async () => {
     try {
@@ -32,6 +66,11 @@ export default function CommentSectionClient({ productId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!text.trim()) return;
+
+    if (!canComment) {
+      toast.error("You can only review products you have purchased and received.");
+      return;
+    }
 
     try {
       await addComment({ productId, userId, text });
@@ -70,6 +109,14 @@ export default function CommentSectionClient({ productId }) {
       {!user ? (
         <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
           Please log in to post a comment.
+        </p>
+      ) : checkingPermission ? (
+        <p className="text-center text-gray-500 dark:text-gray-400 mb-6">
+          Checking permissions...
+        </p>
+      ) : !canComment ? (
+        <p className="text-center text-amber-600 dark:text-amber-400 mb-6 bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg">
+          You can only review products you have purchased and received. 📦
         </p>
       ) : (
         <form onSubmit={handleSubmit} className="mb-8">

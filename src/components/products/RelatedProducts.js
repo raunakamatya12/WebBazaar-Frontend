@@ -36,10 +36,10 @@ async function RelatedProducts({ category, currentProductId }) {
                     {product.name}
                   </h3>
                   <div className="flex gap-2 pt-2">
-                    <span className="bg-blue-100 text-primary text-xs font-medium px-2.5 py-0.5 rounded-sm">
-                      {product.category}
+                    <span className="bg-gradient-to-r from-blue-300 to-cyan-400 text-white text-xs font-bold px-2.5 py-1 rounded-sm shadow-md">
+                      📦 {product.category}
                     </span>
-                    <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-sm">
+                    <span className="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-sm">
                       {product?.brand}
                     </span>
                   </div>

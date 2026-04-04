@@ -3,6 +3,7 @@ import Image from "next/image";
 import placeholder from "@/assets/images/product-placeholder.jpeg";
 import Link from "next/link";
 import AddToCart from "./AddToCart";
+import BuyNow from "./BuyNow";
 
 function ProductCard({ product }) {
   return (
@@ -20,10 +21,10 @@ function ProductCard({ product }) {
       </Link>
       <div className="py-4 px-5">
         <div className="mb-2">
-          <span className="bg-blue-100 text-primary text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
-            {product.category}
+          <span className="bg-gradient-to-r from-blue-300 to-cyan-400 text-white text-xs font-bold me-2 px-2.5 py-1 rounded-sm shadow-md">
+            📦 {product.category}
           </span>
-          <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ">
+          <span className="bg-blue-600 text-white text-xs font-medium me-2 px-2.5 py-1 rounded-sm">
             {product?.brand}
           </span>
         </div>
@@ -35,8 +36,9 @@ function ProductCard({ product }) {
           {product.stock > 0 ? `In Stock: ${product.stock}` : "Out of Stock"}
         </p>
       </div>
-      <div className="px-4">
+      <div className="px-4 gap-2 flex flex-col">
         <AddToCart product={product} className="w-full" />
+        <BuyNow product={product} className="w-full" />
       </div>
     </div>
   );

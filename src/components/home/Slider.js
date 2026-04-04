@@ -3,7 +3,7 @@
 import { getPopularProducts } from "@/api/products";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { FiArrowRight, FiArrowLeft, FiStar } from "react-icons/fi";
+import { FiArrowRight, FiArrowLeft } from "react-icons/fi";
 // import { getPopularProducts } from "@/services/productService"; // adjust path
 
 export default function TopRatedSlider() {
@@ -52,7 +52,7 @@ export default function TopRatedSlider() {
     return <p className="p-4 text-center">No products found.</p>;
 
   return (
-    <section className="relative h-auto md:h-[600px] overflow-hidden bg-gray-100 dark:bg-gray-800">
+    <section className="relative h-auto md:h-[700px] overflow-hidden bg-gray-100 dark:bg-gray-800">
       {products.map((product, index) => (
         <div
           key={product._id}
@@ -63,57 +63,39 @@ export default function TopRatedSlider() {
           }`}>
           <div className="container mx-auto mt-16 px-6">
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-              {/* Product Image */}
+              {/* Product Image - BIGGER */}
               <div className="md:w-1/2 flex justify-center">
-                <div className="relative w-full max-w-md h-64 md:h-96 bg-white dark:bg-gray-700 rounded-xl shadow-lg  overflow-hidden">
+                <div className="relative w-full max-w-2xl h-80 md:h-[500px] bg-white dark:bg-gray-700 rounded-2xl shadow-2xl overflow-hidden">
                   <Image
                     src={product.imageUrls?.[0] || "/placeholder.png"}
                     alt={product.name}
-                    width={1000}
-                    height={1000}
-                    className="w-full h-full object-cover p-6 transform hover:scale-105 transition duration-500"
+                    width={1200}
+                    height={1200}
+                    className="w-full h-full object-cover p-8 transform hover:scale-110 transition duration-500"
                   />
                 </div>
               </div>
 
               {/* Product Info */}
               <div className="md:w-1/2 text-center md:text-left">
-                <span className="inline-block bg-[#016EB7] text-white text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                  {product.category}
+                {/* Category - VIBRANT COLOR */}
+                <span className="inline-block bg-gradient-to-r from-blue-300 to-cyan-400 text-white text-sm font-bold px-5 py-2 rounded-full mb-6 shadow-lg">
+                  📦 {product.category}
                 </span>
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">
+                
+                {/* Product Name - CLEAR & BOLD */}
+                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 leading-tight">
                   {product.name}
                 </h1>
-                <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                  by <span className="font-semibold">{product.brand}</span>
-                </p>
-
-                {/* Rating */}
-                <div className="flex items-center justify-center md:justify-start mb-6">
-                  <div className="flex mr-2">
-                    {[...Array(5)].map((_, i) => (
-                      <FiStar
-                        key={i}
-                        className={`${
-                          i < Math.round(product.averageRating)
-                            ? "text-yellow-400 fill-yellow-400"
-                            : "text-gray-300 dark:text-gray-500"
-                        } w-5 h-5`}
-                      />
-                    ))}
+                
+                {/* Stock Status - show only when in stock */}
+                {product.stock > 0 && (
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="inline-block text-sm font-semibold px-4 py-2 rounded-full bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-200">
+                      ✓ In Stock ({product.stock})
+                    </span>
                   </div>
-                  <span className="text-gray-600 dark:text-gray-300">
-                    {product.averageRating.toFixed(1)} ({product.ratingsCount}{" "}
-                    reviews)
-                  </span>
-                </div>
-
-                {/* Price */}
-                <div className="mb-6">
-                  <span className="text-3xl font-bold text-[#016EB7] dark:text-blue-400">
-                    RS. {product.price.toFixed(2)}
-                  </span>
-                </div>
+                )}
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import AddToCart from "@/components/products/AddToCart";
+import BuyNow from "@/components/products/BuyNow";
 import Link from "next/link";
 import { getProductById } from "@/api/products";
 import ProductDescription from "@/components/products/Description";
@@ -6,6 +7,7 @@ import AddToFavorite from "@/components/products/AddToFavorite";
 import ImagePreview from "@/components/products/Preview";
 import BackButton from "@/components/BackButton";
 import RelatedProducts from "@/components/products/RelatedProducts";
+import FrequentlyBoughtTogether from "@/components/products/FrequentlyBoughtTogether";
 import { PRODUCTS_ROUTE } from "@/constants/routes";
 import FinalStars from "@/components/products/FinalStars";
 import ProductRatingClient from "@/components/products/ProductRatingClient";
@@ -51,8 +53,12 @@ async function ProductByIdPage({ params }) {
       <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
         <ImagePreview imageUrls={product.imageUrls} />
         <div className="mt-6 sm:mt-8 lg:mt-0">
-          <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
-            In Stock
+          <span className={`text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ${
+            product.stock > 0
+              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+              : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+          }`}>
+            {product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}
           </span>
           <h1 className="text-xl mt-2 font-semibold text-gray-900 sm:text-2xl dark:text-white">
             {product.name}
@@ -76,19 +82,20 @@ async function ProductByIdPage({ params }) {
             {product?.brand && (
               <Link
                 href={`${PRODUCTS_ROUTE}?brands=${product?.brand}`}
-                className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-5 py-1 rounded-sm dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800">
+                className="bg-blue-600 text-white text-sm font-bold me-2 px-5 py-1 rounded-sm hover:bg-blue-700 dark:hover:bg-blue-800">
                 {product.brand}
               </Link>
             )}
             <Link
               href={`${PRODUCTS_ROUTE}?category=${product?.category}`}
-              className="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-5 py-1 rounded-sm dark:bg-gray-900 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800">
-              {product.category}
+              className="bg-gradient-to-r from-blue-300 to-cyan-400 text-white text-sm font-bold me-2 px-5 py-1 rounded-sm hover:from-blue-400 hover:to-cyan-500">
+              📦 {product.category}
             </Link>
           </div>
           <div className="mt-6 gap-2 sm:gap-4 sm:items-center flex flex-col sm:flex-row sm:mt-8">
             <AddToFavorite />
             <AddToCart product={{ id: productId, ...product }} />
+            <BuyNow product={{ id: productId, ...product }} />
           </div>
           {/* //star */}
           <div>
@@ -102,6 +109,7 @@ async function ProductByIdPage({ params }) {
             category={product.category}
             currentProductId={productId}
           />
+          <FrequentlyBoughtTogether productId={productId} />
         </div>
       </div>
       <ProductDescription description={product?.description} />

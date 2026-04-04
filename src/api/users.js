@@ -16,8 +16,12 @@ async function updateUser(id, data) {
   return await api.put(`/api/users/${id}`, data);
 }
 
-async function uploadProfileImage(file) {
-  return await api.put(`/api/users/profile/upload`, file);
+async function uploadProfileImage(formData) {
+  return await api.put(`/api/users/profile/upload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 export { updateUser, uploadProfileImage, getAllUsers, getUserById, deleteUser };

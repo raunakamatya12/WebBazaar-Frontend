@@ -6,6 +6,7 @@ import { FiStar } from "react-icons/fi";
 import { getPopularProducts } from "@/api/products";
 import Link from "next/link";
 import AddToCart from "../products/AddToCart";
+import BuyNow from "../products/BuyNow";
 
 function BestProduct() {
   const [product, setProduct] = useState(null);
@@ -111,8 +112,14 @@ function BestProduct() {
                   "bg-[#016EB7] hover:bg-[#015a9b] text-white font-semibold py-2.5 px-6 rounded-full transition duration-300"
                 }
               />
+              <BuyNow
+                product={product}
+                className={
+                  "bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-6 rounded-full transition duration-300"
+                }
+              />
               <Link
-                href={`/product/${_id}`}
+                href={`/products/${_id}`}
                 className="border border-[#016EB7] hover:bg-[#016EB7] hover:text-white text-[#016EB7] dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-white font-semibold py-2.5 px-6 rounded-full text-center transition duration-300">
                 View Details
               </Link>
