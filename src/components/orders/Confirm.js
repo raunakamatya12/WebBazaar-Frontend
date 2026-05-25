@@ -1,7 +1,6 @@
 "use client";
 
 import KhaltiPayment from "./KhaltiPayment";
-import EsewaPayment from "./EsewaPayment";
 import CashOnDelivery from "./CashOnDelivery";
 
 function ConfirmOrder({ order }) {
@@ -12,7 +11,7 @@ function ConfirmOrder({ order }) {
       </div>
       <CashOnDelivery order={order} />
       <KhaltiPayment order={order} />
-      <EsewaPayment order={order} />
+      
     </div>
   );
 }
