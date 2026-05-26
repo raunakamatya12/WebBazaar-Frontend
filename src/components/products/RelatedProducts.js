@@ -1,11 +1,17 @@
-import { getProducts } from "@/api/products";
+import { getProductRecommendations, getProducts } from "@/api/products";
 import Image from "next/image";
 import Link from "next/link";
 
 async function RelatedProducts({ category, currentProductId }) {
-  const response = await getProducts({ category });
+  let products = [];
 
-  const products = response.data;
+  try {
+    const recommendationResponse = await getProductRecommendations(currentProductId, 4);
+    products = recommendationResponse.data?.data || [];
+  } catch (error) {
+    const response = await getProducts({ category });
+    products = response.data;
+  }
 
   return (
     <section>
@@ -14,18 +20,18 @@ async function RelatedProducts({ category, currentProductId }) {
       </h2>
       <div className="grid grid-cols-1 gap-3">
         {products
-          .filter((product) => product.id != currentProductId)
+          .filter((product) => String(product._id || product.id) !== String(currentProductId))
           .map((product, index) =>
             index < 4 ? (
               <Link
-                href={product.id}
-                key={index}
+                href={`/products/${product._id || product.id}`}
+                key={product._id || product.id || index}
                 className="flex gap-5 items-center px-4 py-3 rounded-xl shadow-md hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-900"
               >
                 <div className="h-16 w-16">
                   <Image
-                    src={product.imageUrls[0]}
-                    alt=""
+                    src={product.imageUrls?.[0] || "/placeholder.png"}
+                    alt={product.name || "Related product"}
                     height={50}
                     width={50}
                     className="h-full w-full object-cover rounded-md"

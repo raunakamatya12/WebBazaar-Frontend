@@ -3,15 +3,14 @@
 import Link from "next/link";
 import Spinner from "@/components/Spinner";
 import { EMAIL_REGEX } from "@/constants/regex";
-import { HOME_ROUTE, REGISTER_ROUTE, DASHBOARD_ROUTE } from "@/constants/routes";
+import { HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
 import { loginUser } from "@/redux/auth/authActions";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import PasswordField from "@/components/auth/PasswordField";
-import { allowedAdminRoles } from "@/helpers/auth";
 
 function LoginPage() {
   const {
@@ -21,6 +20,7 @@ function LoginPage() {
   } = useForm();
 
   const { user, error, loading } = useSelector((state) => state.auth);
+  const [redirecting, setRedirecting] = useState(false);
 
   const router = useRouter();
 
@@ -32,12 +32,8 @@ function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      // Redirect based on user role
-      if (allowedAdminRoles(user?.roles)) {
-        router.push(DASHBOARD_ROUTE);
-      } else {
-        router.push(HOME_ROUTE);
-      }
+      setRedirecting(true);
+      router.replace(HOME_ROUTE);
     }
 
     if (error)
@@ -45,6 +41,14 @@ function LoginPage() {
         autoClose: 750,
       });
   }, [user, error, router]);
+
+  if (redirecting || user) {
+    return (
+      <section className="flex items-center justify-center py-12">
+        <Spinner className="h-8 w-8" />
+      </section>
+    );
+  }
 
   return (
     <section>

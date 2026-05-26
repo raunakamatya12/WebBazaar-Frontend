@@ -7,7 +7,6 @@ import AddToFavorite from "@/components/products/AddToFavorite";
 import ImagePreview from "@/components/products/Preview";
 import BackButton from "@/components/BackButton";
 import RelatedProducts from "@/components/products/RelatedProducts";
-import FrequentlyBoughtTogether from "@/components/products/FrequentlyBoughtTogether";
 import { PRODUCTS_ROUTE } from "@/constants/routes";
 import FinalStars from "@/components/products/FinalStars";
 import ProductRatingClient from "@/components/products/ProductRatingClient";
@@ -109,7 +108,6 @@ async function ProductByIdPage({ params }) {
             category={product.category}
             currentProductId={productId}
           />
-          <FrequentlyBoughtTogether productId={productId} />
         </div>
       </div>
       <ProductDescription description={product?.description} />

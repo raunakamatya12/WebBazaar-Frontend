@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { addComment, getCommentsByProduct, deleteComment } from "@/api/comment";
@@ -154,21 +155,41 @@ export default function CommentSectionClient({ productId }) {
             <li
               key={c._id}
               className="relative bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 hover:shadow-lg transition">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="font-semibold text-gray-900 dark:text-gray-100">
-                    {typeof c.userId === "object"
-                      ? c.userId.name || "Unknown User"
-                      : "Unknown User"}
-                  </p>
-                  <p className="mt-1 text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                    {c.text}
-                  </p>
-                  {c.sentimentScore !== undefined && (
-                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                      Sentiment Score: {c.sentimentScore}
+              <div className="flex justify-between items-start gap-4">
+                <div className="flex items-start gap-3 min-w-0">
+                  <div className="h-10 w-10 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+                    {typeof c.userId === "object" && c.userId?.profileImageUrl ? (
+                      <Image
+                        src={c.userId.profileImageUrl}
+                        alt={c.userId.name || "User avatar"}
+                        width={40}
+                        height={40}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center text-sm font-semibold text-gray-600 dark:text-gray-200">
+                        {(typeof c.userId === "object" && c.userId?.name
+                          ? c.userId.name.charAt(0)
+                          : "U"
+                        ).toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-gray-900 dark:text-gray-100">
+                      {typeof c.userId === "object"
+                        ? c.userId.name || "Unknown User"
+                        : "Unknown User"}
                     </p>
-                  )}
+                    <p className="mt-1 text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                      {c.text}
+                    </p>
+                    {c.sentimentScore !== undefined && (
+                      <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        Sentiment Score: {c.sentimentScore}
+                      </p>
+                    )}
+                  </div>
                 </div>
                 {userId ===
                   (typeof c.userId === "object" ? c.userId._id : c.userId) && (

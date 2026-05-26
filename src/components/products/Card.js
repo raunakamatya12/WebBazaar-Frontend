@@ -73,7 +73,6 @@ function ProductCard({ product }) {
 
             <div className="text-sm text-gray-500 dark:text-gray-300">
               <div className="font-medium text-gray-800 dark:text-gray-100">{product.brand}</div>
-              <div className={`${product.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>{product.stock > 0 ? `In stock` : 'Out of stock'}</div>
             </div>
           </div>
         </div>
