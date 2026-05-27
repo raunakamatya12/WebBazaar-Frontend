@@ -3,6 +3,7 @@ import OrdersTable from "@/components/orders/Table";
 import { getOrders } from "@/api/orders";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { setOrderStatus } from "@/redux/order/orderSlice";
 import Spinner from "@/components/Spinner";
 

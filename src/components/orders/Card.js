@@ -32,7 +32,6 @@ function OrderCard({ order }) {
   return (
     <div className="bg-slate-100 rounded-xl border border-gray-300 dark:text-white dark:border-gray-600 my-5 dark:bg-slate-800">
       <div className="flex items-center justify-between pt-4 px-6">
-        <h2 className="font-semibold">#{order.orderNumber}</h2>
         <OrderStatus status={order.status} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 py-4 px-6">

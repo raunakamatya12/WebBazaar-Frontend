@@ -8,6 +8,7 @@ import {
   ORDER_STATUS_SHIPPED,
 } from "@/constants/orderStatus";
 import { getOrdersByUser } from "@/api/orders";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
@@ -52,7 +53,8 @@ function OrdersPage() {
   useEffect(() => {
     setLoading(true);
 
-    getOrdersByUser(user?.id, status ?? ORDER_STATUS_PENDING)
+    // default to showing confirmed orders for users (confirmed and delivered tabs available)
+    getOrdersByUser(user?.id, status ?? ORDER_STATUS_CONFIRMED)
       .then((response) => setOrders(response.data))
       .catch((error) => toast.error(error.response.data, { autoClose: 750 }))
       .finally(() => setLoading(false));
